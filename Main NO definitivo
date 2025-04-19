@@ -10,7 +10,7 @@ import java.io.*
 
 class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
 
-ptivate Candidato candidato;
+private Candidato candidato;
 private Node next;
 
 public Node(Candidato candidato) { 
