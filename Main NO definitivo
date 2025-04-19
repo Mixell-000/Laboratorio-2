@@ -1,12 +1,5 @@
-//si llegas a ver esto, no me borres los archivos, sirven de respaldo, ya le ves que soy especial fsjkhgadñgkljh
-//si lo vas a editar igual deja una notita para saber con q estamos lidiando
-
-
-
-
-
 import java.util.*;
-import java.io.*
+import java.io.*;
 
 class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
 
@@ -34,13 +27,7 @@ this.next = next;
 
 
 
-
-
-
-
-
-
-
+//
 
 
 class Candidato{
@@ -89,6 +76,7 @@ class Candidato{
        System.out.println("VotosRecibidos : " + VotosRecibidos);
        }};
        
+       
 class Voto{
        private int id;
        private int votanteId;
@@ -128,6 +116,10 @@ class Voto{
        public String GetTimeStamp() {
        return TimeStamp;
        }
+       
+       public void agregarVoto(Voto v){ //recordatorio de que este es boolean!
+           
+       }
 
        public void PrintWeas() {
 
@@ -136,6 +128,7 @@ class Voto{
        System.out.println("candidatoId : " +candidatoId);
        System.out.println("TimeStamp : " +TimeStamp);
        }};
+       
 
 class Votante{
        private int Id;
@@ -173,17 +166,26 @@ class Votante{
        System.out.println("Nombre : " + Nombre);
        System.out.println("yaVoto : " + yaVoto);
        }};
-
+       
+       
+       
      //////  
-
-	class UrnalElectoral{
+       
+class UrnalElectoral{
     
     private Node listaCandidatos;
 }
        
        
      ////////
-
+       
+       
+       
+       
+       
+       
+       
+       
 
 
 public class Main
