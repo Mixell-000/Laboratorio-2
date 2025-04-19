@@ -1,10 +1,34 @@
+//si llegas a ver esto, no me borres los archivos, sirven de respaldo, ya le ves que soy especial fsjkhgadñgkljh
+//si lo vas a editar igual deja una notita para saber con q estamos lidiando
+
+
+
+
+
 import java.util.*;
 import java.io.*
 
-class Node{
+class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
 
-ptivate Candidato;
-private Node Next;
+ptivate Candidato candidato;
+private Node next;
+
+public Node(Candidato candidato) { 
+this.candidato = candidato
+this.next = null
+}
+public Candidato getCandidato(){ //getter de "Candidato"
+return candidato;
+}
+
+public Nodo getNext(){ //getter del nodo que sigue
+return next;
+}
+
+public void setSiguiente(Node next){
+this.next = next;
+}
+
 
 }
 
@@ -149,6 +173,17 @@ class Votante{
        System.out.println("Nombre : " + Nombre);
        System.out.println("yaVoto : " + yaVoto);
        }};
+
+     //////  
+
+	class UrnalElectoral{
+    
+    private Node listaCandidatos;
+}
+       
+       
+     ////////
+
 
 
 public class Main
