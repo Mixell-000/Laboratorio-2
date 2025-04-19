@@ -14,14 +14,14 @@ private Candidato candidato;
 private Node next;
 
 public Node(Candidato candidato) { 
-this.candidato = candidato
-this.next = null
+this.candidato = candidato;
+this.next = null;
 }
 public Candidato getCandidato(){ //getter de "Candidato"
 return candidato;
 }
 
-public Nodo getNext(){ //getter del nodo que sigue
+public Node getNext(){ //getter del nodo que sigue
 return next;
 }
 
