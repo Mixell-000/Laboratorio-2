@@ -25,11 +25,6 @@ this.next = next;
 
 }
 
-
-
-//
-
-
 class Candidato{
        private int Id;
        private String Nombre;
@@ -75,7 +70,6 @@ class Candidato{
        System.out.println("Partido : " + Partido);
        System.out.println("VotosRecibidos : " + VotosRecibidos);
        }};
-       
        
 class Voto{
        private int id;
@@ -129,7 +123,6 @@ class Voto{
        System.out.println("TimeStamp : " +TimeStamp);
        }};
        
-
 class Votante{
        private int Id;
        private String Nombre;
@@ -166,14 +159,43 @@ class Votante{
        System.out.println("Nombre : " + Nombre);
        System.out.println("yaVoto : " + yaVoto);
        }};
-       
-       
-       
      //////  
        
 class UrnalElectoral{
     
     private Node listaCandidatos;
+    private Stack<Voto> historialVotos;
+    private Queue<Voto>  votosReportados;
+    private int idCounter;
+    
+    public UrnalElectoral() {
+    historialVotos = new Stack<>();
+    votosReportados = new LinkedList<>(); 
+    idCounter = 0;
+    listaCandidatos = null; 
+}
+
+    
+    public boolean verificarVotante(Votante votante){//recordatorio : boolean
+        if(votante.GetyaVoto() == false){
+        return false;   
+        }
+        else{
+        return true;
+        }
+        
+    }
+    public void registrarVoto(Votante votante,int id){//recordatorio : boolean
+        
+        
+        
+        
+        
+        
+        
+    }
+    public void reportarVoto(Candidato candidato, int a){}//recordatorio : boolean
+    public void obtenerResultado(){}//recordatorio : string
 }
        
        
