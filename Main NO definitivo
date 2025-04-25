@@ -24,14 +24,61 @@ this.next = next;
 
 
 }
+  
+class Voto{
+       private int id;
+       private int votanteId;
+       private int candidatoId;
+       private String TimeStamp;
+
+       public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {//constructor
+       this.id = id;
+       this.votanteId = votanteId;
+       this.candidatoId = candidatoId;
+       this.TimeStamp = TimeStamp;
+       }
+        //setters y getters
+       public void Setid (int Newid) {
+       id = Newid;
+       }
+       public void SetvotanteId (int NewvotanteId) {
+       votanteId = NewvotanteId;
+       }
+       public void SetcandidatoId (int NewcandidatoId) {
+       candidatoId = NewcandidatoId;
+       }
+       public void SetTimeStamp (String NewTimeStamp) {
+       TimeStamp = NewTimeStamp;
+       }
+
+       public int Getid() {
+       return id;
+       }
+       public int GetvotanteId() {
+       return votanteId;
+       }
+       public int GetcandidatoId() {
+       return candidatoId;
+       }
+       public String GetTimeStamp() {
+       return TimeStamp;
+       }
+       
+       public void Printvoto() {
+
+       System.out.println("id : " +id);
+       System.out.println("votanteId : " +votanteId);
+       System.out.println("candidatoId : " +candidatoId);
+       System.out.println("TimeStamp : " +TimeStamp);
+       }};
 
 class Candidato{
        private int Id;
        private String Nombre;
        private String Partido;
        private Queue<Voto> VotosRecibidos;
-
-       Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) {
+       
+       Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) { //constructor
        this.Id = Id;
        this.Nombre = Nombre;
        this.Partido = Partido;
@@ -64,63 +111,15 @@ class Candidato{
        return VotosRecibidos;
        }
 
-       public void PrintWeas() {
+        public void agregarVoto(Voto v){ //agrega unvoto
+        VotosRecibidos.add(v);
+       }
+
+       public void Printcandidatos() {
        System.out.println("Id : " + Id);
        System.out.println("Nombre : " + Nombre);
        System.out.println("Partido : " + Partido);
        System.out.println("VotosRecibidos : " + VotosRecibidos);
-       }};
-       
-class Voto{
-       private int id;
-       private int votanteId;
-       private int candidatoId;
-       private String TimeStamp;
-
-
-       public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {
-       this. id = id;
-       this. votanteId = votanteId;
-       this. candidatoId = candidatoId;
-       this. TimeStamp = TimeStamp;
-       }
-
-       public void Setid (int Newid) {
-       id = Newid;
-       }
-       public void SetvotanteId (int NewvotanteId) {
-       votanteId = NewvotanteId;
-       }
-       public void SetcandidatoId (int NewcandidatoId) {
-       candidatoId = NewcandidatoId;
-       }
-       public void SetTimeStamp (String NewTimeStamp) {
-       TimeStamp = NewTimeStamp;
-       }
-
-       public int Getid() {
-       return id;
-       }
-       public int GetvotanteId() {
-       return votanteId;
-       }
-       public int GetcandidatoId() {
-       return candidatoId;
-       }
-       public String GetTimeStamp() {
-       return TimeStamp;
-       }
-       
-       public void agregarVoto(Voto v){ //recordatorio de que este es boolean!
-           
-       }
-
-       public void PrintWeas() {
-
-       System.out.println("id : " +id);
-       System.out.println("votanteId : " +votanteId);
-       System.out.println("candidatoId : " +candidatoId);
-       System.out.println("TimeStamp : " +TimeStamp);
        }};
        
 class Votante{
