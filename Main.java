@@ -201,7 +201,7 @@ class UrnalElectoral{
 	    if(verificarVotante(votante) == true){
             return false;
         }
-        
+        return true;
         
         
         
