@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 import java.time.LocalTime;//libreria que me deja usar el "localtime" para asi darle una fecha a los votos que seingresen
 
-
 class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
 
 private Candidato candidato;
@@ -179,7 +178,6 @@ class UrnalElectoral{
     listaCandidatos = null; 
 }
 
-    
     public boolean verificarVotante(Votante votante){
         if(votante.GetyaVoto() == false){
         return false;   
@@ -189,8 +187,24 @@ class UrnalElectoral{
         }
         
     }
-    public void registrarVoto(Votante votante,int id){
+    public boolean registrarVoto(Votante votante,int id){
+        //condicion principal (qu eel votante no haya votado)
+        if(verificarVotante(votante) == true){
+            return false;
+        }
         
+        
+        
+        
+        
+        
+        //extrae la hora actual del equipo en el que s einvoca el metodo y se registra el voto
+        //y lo transforma a string (para no tener problemas de variables diferentes etc)
+        
+        String tiempoactual = java.time.LocalTime.now().toString(); 
+        
+        voto nuevo_Voto = new Voto(idCounte++, votante.GetId, candidatoId, tiempoactual );
+        return true;
         
         
         
