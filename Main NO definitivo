@@ -214,6 +214,7 @@ class UrnalElectoral{
 
         return true;
     }
+}
 
 
     public void reportarVoto(Candidato candidato, int idVoto) {
