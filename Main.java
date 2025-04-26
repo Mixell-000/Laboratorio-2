@@ -6,19 +6,95 @@ C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS
 Code, Compile, Run and Debug online from anywhere in world.
 
 *******************************************************************************/
+import java.util.*;
+import java.io.*;
+import java.time.LocalTime;//libreria que me deja usar el "localtime" para asi darle una fecha a los votos que seingresen
+
+
+class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
+
+private Candidato candidato;
+private Node next;
+
+public Node(Candidato candidato) { 
+this.candidato = candidato;
+this.next = null;
+}
+public Candidato getCandidato(){ //getter de "Candidato"
+return candidato;
+}
+
+public Node getNext(){ //getter del nodo que sigue
+return next;
+}
+
+public void setSiguiente(Node next){
+this.next = next;
+}
+
+
+}
+
+class Voto{
+       private int id;
+       private int votanteId;
+       private int candidatoId;
+       private String TimeStamp;
+
+       public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {//constructor
+       this.id = id;
+       this.votanteId = votanteId;
+       this.candidatoId = candidatoId;
+       this.TimeStamp = TimeStamp;
+       }
+        //setters y getters
+       public void Setid (int Newid) {
+       id = Newid;
+       }
+       public void SetvotanteId (int NewvotanteId) {
+       votanteId = NewvotanteId;
+       }
+       public void SetcandidatoId (int NewcandidatoId) {
+       candidatoId = NewcandidatoId;
+       }
+       public void SetTimeStamp (String NewTimeStamp) {
+       TimeStamp = NewTimeStamp;
+       }
+
+       public int Getid() {
+       return id;
+       }
+       public int GetvotanteId() {
+       return votanteId;
+       }
+       public int GetcandidatoId() {
+       return candidatoId;
+       }
+       public String GetTimeStamp() {
+       return TimeStamp;
+       }
+       
+       public void Printvoto() {
+
+       System.out.println("id : " +id);
+       System.out.println("votanteId : " +votanteId);
+       System.out.println("candidatoId : " +candidatoId);
+       System.out.println("TimeStamp : " +TimeStamp);
+       }};
+
 class Candidato{
        private int Id;
        private String Nombre;
        private String Partido;
        private Queue<Voto> VotosRecibidos;
-
-       Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) {
+       
+       Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) { //constructor
        this.Id = Id;
        this.Nombre = Nombre;
        this.Partido = Partido;
        this.VotosRecibidos = VotosRecibidos;
        }
-
+        //setter y getters
        public void SetId (int NewId) {
        Id = NewId;
        }
@@ -45,72 +121,28 @@ class Candidato{
        return VotosRecibidos;
        }
 
-       public void PrintWeas() {
+        public void agregarVoto(Voto v){ //agrega unvoto
+        VotosRecibidos.add(v);
+       }
+
+       public void Printcandidatos() {
        System.out.println("Id : " + Id);
        System.out.println("Nombre : " + Nombre);
        System.out.println("Partido : " + Partido);
        System.out.println("VotosRecibidos : " + VotosRecibidos);
        }};
        
-class Voto{
-       private int id;
-       private int votanteId;
-       private int candidatoId;
-       private String TimeStamp;
-
-
-       public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {
-       this. id = id;
-       this. votanteId = votanteId;
-       this. candidatoId = candidatoId;
-       this. TimeStamp = TimeStamp;
-       }
-
-       public void Setid (int Newid) {
-       id = Newid;
-       }
-       public void SetvotanteId (int NewvotanteId) {
-       votanteId = NewvotanteId;
-       }
-       public void SetcandidatoId (int NewcandidatoId) {
-       candidatoId = NewcandidatoId;
-       }
-       public void SetTimeStamp (String NewTimeStamp) {
-       TimeStamp = NewTimeStamp;
-       }
-
-       public int Getid() {
-       return id;
-       }
-       public int GetvotanteId() {
-       return votanteId;
-       }
-       public int GetcandidatoId() {
-       return candidatoId;
-       }
-       public String GetTimeStamp() {
-       return TimeStamp;
-       }
-
-       public void PrintWeas() {
-
-       System.out.println("id : " +id);
-       System.out.println("votanteId : " +votanteId);
-       System.out.println("candidatoId : " +candidatoId);
-       System.out.println("TimeStamp : " +TimeStamp);
-       }};
-
 class Votante{
        private int Id;
        private String Nombre;
        private boolean yaVoto;
        
-       Votante(int Id,String Nombre,boolean yaVoto) {
+       Votante(int Id,String Nombre,boolean yaVoto) {//constructor
        this.Id = Id;
        this.Nombre = Nombre;
        this.yaVoto = yaVoto;
        }
-
+        //setters y getters
        public void SetId (int NewId) {
        Id = NewId;
        }
@@ -130,13 +162,52 @@ class Votante{
        public boolean GetyaVoto() {
        return yaVoto;
        }
+        
+        public void marcarComoVotado() { //para marcar si alguien ya voto
+        yaVoto = true;
+        }
 
-       public void PrintWeas() {
+       public void PrintVotante() {
        System.out.println("Id : " + Id);
        System.out.println("Nombre : " + Nombre);
        System.out.println("yaVoto : " + yaVoto);
        }};
+       
+class UrnalElectoral{
+    
+    private Node listaCandidatos;
+    private Stack<Voto> historialVotos;
+    private Queue<Voto>  votosReportados;
+    private int idCounter;
+    
+    public UrnalElectoral() {//constructor
+    historialVotos = new Stack<>();
+    votosReportados = new LinkedList<>(); 
+    idCounter = 0;
+    listaCandidatos = null; 
+}
 
+    
+    public boolean verificarVotante(Votante votante){
+        if(votante.GetyaVoto() == false){
+        return false;   
+        }
+        else{
+        return true;
+        }
+        
+    }
+    public void registrarVoto(Votante votante,int id){
+        
+        
+        
+        
+        
+    }
+    public void reportarVoto(Candidato candidato, int a){}//recordatorio : boolean
+    public void obtenerResultado(){}//recordatorio : string
+}
+       
 
 public class Main
 {
