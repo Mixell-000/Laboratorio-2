@@ -198,6 +198,9 @@ class UrnalElectoral{
         
     }
     public void registrarVoto(Votante votante,int id){
+	    if(verificarVotante(votante) == true){
+            return false;
+        }
         
         
         
