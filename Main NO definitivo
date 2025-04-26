@@ -265,9 +265,94 @@ class UrnalElectoral {
 }
 
 
-public class Main
-{
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-	}
-}
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        UrnalElectoral urna = new UrnalElectoral(); // Instancia de la urna
+        ArrayList<Votante> votantes = new ArrayList<>(); // Lista de votantes
+
+        urna.agregarCandidato(new Candidato(0, "Gabriel Boric", "Comunismo2", new LinkedList<>()));
+        urna.agregarCandidato(new Candidato(1, "IA de Pinochet", "NeoPinochetistas", new LinkedList<>()));
+        urna.agregarCandidato(new Candidato(2, "Guru Guru", "TVN", new LinkedList<>()));
+
+        while (true) {
+            System.out.println("\n--- MenUwU de Votaciones ---");
+            System.out.println("1. Registrar Votante");
+            System.out.println("2. Votar");
+            System.out.println("3. Reportar Voto");
+            System.out.println("4. Ver Resultados");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opción: ");
+
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar salto de línea
+
+            switch (opcion) {
+                case 1:
+                    // Registrar Votante
+                    System.out.print("Nombre del votante: ");
+                    String nombreVotante = scanner.nextLine();
+                    int idVotante = votantes.size(); // ID será el índice en la lista
+
+                    Votante nuevoVotante = new Votante(idVotante, nombreVotante, false);
+                    votantes.add(nuevoVotante);
+
+                    System.out.println("Votante registrado con ID: " + idVotante);
+                    break;
+
+                case 2:
+                    // Votar
+                    System.out.print("Ingrese su ID de votante: ");
+                    int idVot = scanner.nextInt();
+                    System.out.print("Ingrese el ID del candidato a votar (0: Boric, 1: IA de Pinochet, 2: Guru Guru): ");
+                    int idCand = scanner.nextInt();
+
+                    if (idVot < votantes.size()) {
+                        Votante votante = votantes.get(idVot);
+                        if (urna.registrarVoto(votante, idCand)) {
+                            System.out.println("Voto registrado exitosamente!");
+                        } else {
+                            System.out.println("Ya votaste, no podís votar dos veces.");
+                        }
+                    } else {
+                        System.out.println("ID de votante no válido.");
+                    }
+                    break;
+
+                case 3:
+                    // Reportar Voto
+                    System.out.print("Ingrese el ID del candidato (0: Boric, 1: IA de Pinochet, 2: Guru Guru): ");
+                    int idCandidatoReportar = scanner.nextInt();
+                    System.out.print("Ingrese el ID del voto que quiere reportar: ");
+                    int idVotoReportar = scanner.nextInt();
+
+                    Node actual = urna.getListaCandidatos();
+                    boolean encontrado = false;
+                    while (actual != null) {
+                        if (actual.getCandidato().GetId() == idCandidatoReportar) {
+                            urna.reportarVoto(actual.getCandidato(), idVotoReportar);
+                            encontrado = true;
+                            break;
+                        }
+                        actual = actual.getNext();
+                    }
+                    if (!encontrado) {
+                        System.out.println("Candidato no encontrado.");
+                    }
+                    break;
+
+                case 4:
+                    // Ver Resultados
+                    urna.obtenerResultado()
+                    break;
+
+                case 5:
+                    // Salir
+                    System.out.println("Gracias por usar Electo. ¡Chao pescado!");
+                    return;
+
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
+    }
