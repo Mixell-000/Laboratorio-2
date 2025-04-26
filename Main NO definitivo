@@ -203,7 +203,7 @@ class UrnalElectoral{
         
         String tiempoactual = java.time.LocalTime.now().toString(); 
         
-        voto nuevo_Voto = new Voto(idCounte++, votante.GetId, candidatoId, tiempoactual );
+        Voto nuevo_Voto = new Voto(idCounter++, votante.GetId(), id, tiempoactual );
         return true;
         
         
