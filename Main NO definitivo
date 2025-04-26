@@ -260,6 +260,19 @@ class UrnalElectoral{
 
     return 0;
 }
+
+	public void agregarCandidato(Candidato candidato) {
+    Node nuevoNodo = new Node(candidato);
+    if (listaCandidatos == null) {
+        listaCandidatos = nuevoNodo;
+    } else {
+        Node actual = listaCandidatos;
+        while (actual.getNext() != null) {
+            actual = actual.getNext();
+        }
+        actual.setSiguiente(nuevoNodo);
+    }
+}
 }
        
 
