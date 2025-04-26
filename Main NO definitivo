@@ -188,30 +188,78 @@ class UrnalElectoral{
         
     }
     public boolean registrarVoto(Votante votante,int id){
-        //condicion principal (qu eel votante no haya votado)
+        
+        //condicion principal (q el votante no haya votado)
         if(verificarVotante(votante) == true){
             return false;
         }
         
-        
-        
-        
-        
-        
         //extrae la hora actual del equipo en el que s einvoca el metodo y se registra el voto
         //y lo transforma a string (para no tener problemas de variables diferentes etc)
-        
         String tiempoactual = java.time.LocalTime.now().toString(); 
-        
         Voto nuevo_Voto = new Voto(idCounter++, votante.GetId(), id, tiempoactual );
+        
+        //Ahora buscamos si el wn por el que votó existe;
+        Node actual = listaCandidatos;
+    while (actual != null) {
+        if (actual.getCandidato().GetId() == idCandidato) {
+            // es real!, se agrega el voto. asumiré que no se puede poner un candidato que no existe mas que nada porque me da flojera hacer un else XD
+            actual.getCandidato().agregarVoto(nuevoVoto);
+            break;
+        }
+        actual = actual.getNext();
+        
+    historialVotos.push(nuevoVoto);
+    votante.marcarComoVotado();
+
         return true;
-        
-        
-        
-        
     }
-    public void reportarVoto(Candidato candidato, int a){}//recordatorio : boolean
-    public void obtenerResultado(){}//recordatorio : string
+
+
+    public void reportarVoto(Candidato candidato, int idVoto) {
+    Queue<Voto> votosDelCandidato = candidato.GetVotosRecibidos();
+    Queue<Voto> nuevaCola = new LinkedList<>();
+    Voto votoAReportar = null;
+
+    // Buscar el voto mientras reconstruimos la cola
+    while (!votosDelCandidato.isEmpty()) {
+        Voto votoActual = votosDelCandidato.poll(); // Saca el primero
+
+        if (votoActual.Getid() == idVoto) {
+            votoAReportar = votoActual;
+        } else {
+            nuevaCola.add(votoActual);
+        }
+    }
+
+    // Actualizar la cola del candidato
+    candidato.SetVotosRecibidos(nuevaCola);
+
+    if (votoAReportar != null) {
+        votosReportados.add(votoAReportar);
+        System.out.println("Voto reportado de pana ");
+    } else {
+        System.out.println("No se encontró el voto wtff ");
+    }
+}
+
+    public void obtenerResultado() {
+    Node actual = listaCandidatos;
+
+    while (actual != null) {
+        Candidato candidato = actual.getCandidato();
+        int cantidadVotos = candidato.GetVotosRecibidos().size();
+
+        // Imprimir altiro en consola
+        System.out.println("Candidato: " + candidato.GetNombre() +
+                           " (" + candidato.GetPartido() + ")" +
+                           " - Votos: " + cantidadVotos);
+
+        actual = actual.getNext();
+    }
+
+    return 0;
+}
 }
        
 
