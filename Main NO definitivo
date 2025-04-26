@@ -2,280 +2,268 @@ import java.util.*;
 import java.io.*;
 import java.time.LocalTime;//libreria que me deja usar el "localtime" para asi darle una fecha a los votos que seingresen
 
-class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
+class Node { //Clase nodo prar utilizarlo en la urna, como se pide
 
-private Candidato candidato;
-private Node next;
+	private Candidato candidato;
+	private Node next;
 
-public Node(Candidato candidato) { 
-this.candidato = candidato;
-this.next = null;
-}
-public Candidato getCandidato(){ //getter de "Candidato"
-return candidato;
-}
+	public Node(Candidato candidato) {
+		this.candidato = candidato;
+		this.next = null;
+	}
+	public Candidato getCandidato() { //getter de "Candidato"
+		return candidato;
+	}
 
-public Node getNext(){ //getter del nodo que sigue
-return next;
-}
+	public Node getNext() { //getter del nodo que sigue
+		return next;
+	}
 
-public void setSiguiente(Node next){
-this.next = next;
-}
+	public void setSiguiente(Node next) {
+		this.next = next;
+	}
 
 
-}
-
-class Voto{
-       private int id;
-       private int votanteId;
-       private int candidatoId;
-       private String TimeStamp;
-
-       public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {//constructor
-       this.id = id;
-       this.votanteId = votanteId;
-       this.candidatoId = candidatoId;
-       this.TimeStamp = TimeStamp;
-       }
-        //setters y getters
-       public void Setid (int Newid) {
-       id = Newid;
-       }
-       public void SetvotanteId (int NewvotanteId) {
-       votanteId = NewvotanteId;
-       }
-       public void SetcandidatoId (int NewcandidatoId) {
-       candidatoId = NewcandidatoId;
-       }
-       public void SetTimeStamp (String NewTimeStamp) {
-       TimeStamp = NewTimeStamp;
-       }
-
-       public int Getid() {
-       return id;
-       }
-       public int GetvotanteId() {
-       return votanteId;
-       }
-       public int GetcandidatoId() {
-       return candidatoId;
-       }
-       public String GetTimeStamp() {
-       return TimeStamp;
-       }
-       
-       public void Printvoto() {
-
-       System.out.println("id : " +id);
-       System.out.println("votanteId : " +votanteId);
-       System.out.println("candidatoId : " +candidatoId);
-       System.out.println("TimeStamp : " +TimeStamp);
-       }};
-
-class Candidato{
-       private int Id;
-       private String Nombre;
-       private String Partido;
-       private Queue<Voto> VotosRecibidos;
-       
-       Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) { //constructor
-       this.Id = Id;
-       this.Nombre = Nombre;
-       this.Partido = Partido;
-       this.VotosRecibidos = VotosRecibidos;
-       }
-        //setter y getters
-       public void SetId (int NewId) {
-       Id = NewId;
-       }
-       public void SetNombre (String NewNombre) {
-       Nombre = NewNombre;
-       }
-       public void SetPartido (String NewPartido) {
-       Partido = NewPartido;
-       }
-       public void SetVotosRecibidos (Queue<Voto> NewVotosRecibidos) {
-       VotosRecibidos = NewVotosRecibidos;
-       }
-
-       public int GetId() {
-       return Id;
-       }
-       public String GetNombre() {
-       return Nombre;
-       }
-       public String GetPartido() {
-       return Partido;
-       }
-       public Queue<Voto> GetVotosRecibidos() {
-       return VotosRecibidos;
-       }
-
-        public void agregarVoto(Voto v){ //agrega unvoto
-        VotosRecibidos.add(v);
-       }
-
-       public void Printcandidatos() {
-       System.out.println("Id : " + Id);
-       System.out.println("Nombre : " + Nombre);
-       System.out.println("Partido : " + Partido);
-       System.out.println("VotosRecibidos : " + VotosRecibidos);
-       }};
-       
-class Votante{
-       private int Id;
-       private String Nombre;
-       private boolean yaVoto;
-       
-       Votante(int Id,String Nombre,boolean yaVoto) {//constructor
-       this.Id = Id;
-       this.Nombre = Nombre;
-       this.yaVoto = yaVoto;
-       }
-        //setters y getters
-       public void SetId (int NewId) {
-       Id = NewId;
-       }
-       public void SetNombre (String NewNombre) {
-       Nombre = NewNombre;
-       }
-       public void SetyaVoto (boolean NewyaVoto) {
-       yaVoto = NewyaVoto;
-       }
-
-       public int GetId() {
-       return Id;
-       }
-       public String GetNombre() {
-       return Nombre;
-       }
-       public boolean GetyaVoto() {
-       return yaVoto;
-       }
-        
-        public void marcarComoVotado() { //para marcar si alguien ya voto
-        yaVoto = true;
-        }
-
-       public void PrintVotante() {
-       System.out.println("Id : " + Id);
-       System.out.println("Nombre : " + Nombre);
-       System.out.println("yaVoto : " + yaVoto);
-       }};
-       
-class UrnalElectoral{
-    
-    private Node listaCandidatos;
-    private Stack<Voto> historialVotos;
-    private Queue<Voto>  votosReportados;
-    private int idCounter;
-    
-    public UrnalElectoral() {//constructor
-    historialVotos = new Stack<>();
-    votosReportados = new LinkedList<>(); 
-    idCounter = 0;
-    listaCandidatos = null; 
 }
 
-    public boolean verificarVotante(Votante votante){
-        if(votante.GetyaVoto() == false){
-        return false;   
-        }
-        else{
-        return true;
-        }
-        
-    }
-    public boolean registrarVoto(Votante votante,int id){
-        
-        //condicion principal (q el votante no haya votado)
-        if(verificarVotante(votante) == true){
-            return false;
-        }
-        
-        //extrae la hora actual del equipo en el que s einvoca el metodo y se registra el voto
-        //y lo transforma a string (para no tener problemas de variables diferentes etc)
-        String tiempoactual = java.time.LocalTime.now().toString(); 
-        Voto nuevo_Voto = new Voto(idCounter++, votante.GetId(), id, tiempoactual );
-        
-        //Ahora buscamos si el wn por el que votó existe;
-        Node actual = listaCandidatos;
-    while (actual != null) {
-        if (actual.getCandidato().GetId() == idCandidato) {
-            // es real!, se agrega el voto. asumiré que no se puede poner un candidato que no existe mas que nada porque me da flojera hacer un else XD
-            actual.getCandidato().agregarVoto(nuevoVoto);
-            break;
-        }
-        actual = actual.getNext();
-        
-    historialVotos.push(nuevoVoto);
-    votante.marcarComoVotado();
+class Voto {
+	private int id;
+	private int votanteId;
+	private int candidatoId;
+	private String TimeStamp;
 
-        return true;
-    }
+	public Voto(int id,int votanteId,int candidatoId,String TimeStamp) {//constructor
+		this.id = id;
+		this.votanteId = votanteId;
+		this.candidatoId = candidatoId;
+		this.TimeStamp = TimeStamp;
+	}
+	//setters y getters
+	public void Setid (int Newid) {
+		id = Newid;
+	}
+	public void SetvotanteId (int NewvotanteId) {
+		votanteId = NewvotanteId;
+	}
+	public void SetcandidatoId (int NewcandidatoId) {
+		candidatoId = NewcandidatoId;
+	}
+	public void SetTimeStamp (String NewTimeStamp) {
+		TimeStamp = NewTimeStamp;
+	}
+
+	public int Getid() {
+		return id;
+	}
+	public int GetvotanteId() {
+		return votanteId;
+	}
+	public int GetcandidatoId() {
+		return candidatoId;
+	}
+	public String GetTimeStamp() {
+		return TimeStamp;
+	}
+
+	public void Printvoto() {
+
+		System.out.println("id : " +id);
+		System.out.println("votanteId : " +votanteId);
+		System.out.println("candidatoId : " +candidatoId);
+		System.out.println("TimeStamp : " +TimeStamp);
+	}
+};
+
+class Candidato {
+	private int Id;
+	private String Nombre;
+	private String Partido;
+	private Queue<Voto> VotosRecibidos;
+
+	Candidato(int Id,String Nombre,String Partido,Queue<Voto> VotosRecibidos) { //constructor
+		this.Id = Id;
+		this.Nombre = Nombre;
+		this.Partido = Partido;
+		this.VotosRecibidos = VotosRecibidos;
+	}
+	//setter y getters
+	public void SetId (int NewId) {
+		Id = NewId;
+	}
+	public void SetNombre (String NewNombre) {
+		Nombre = NewNombre;
+	}
+	public void SetPartido (String NewPartido) {
+		Partido = NewPartido;
+	}
+	public void SetVotosRecibidos (Queue<Voto> NewVotosRecibidos) {
+		VotosRecibidos = NewVotosRecibidos;
+	}
+
+	public int GetId() {
+		return Id;
+	}
+	public String GetNombre() {
+		return Nombre;
+	}
+	public String GetPartido() {
+		return Partido;
+	}
+	public Queue<Voto> GetVotosRecibidos() {
+		return VotosRecibidos;
+	}
+
+	public void agregarVoto(Voto v) { //agrega unvoto
+		VotosRecibidos.add(v);
+	}
+
+	public void Printcandidatos() {
+		System.out.println("Id : " + Id);
+		System.out.println("Nombre : " + Nombre);
+		System.out.println("Partido : " + Partido);
+		System.out.println("VotosRecibidos : " + VotosRecibidos);
+	}
+};
+
+class Votante {
+	private int Id;
+	private String Nombre;
+	private boolean yaVoto;
+
+	Votante(int Id,String Nombre,boolean yaVoto) {//constructor
+		this.Id = Id;
+		this.Nombre = Nombre;
+		this.yaVoto = yaVoto;
+	}
+	//setters y getters
+	public void SetId (int NewId) {
+		Id = NewId;
+	}
+	public void SetNombre (String NewNombre) {
+		Nombre = NewNombre;
+	}
+	public void SetyaVoto (boolean NewyaVoto) {
+		yaVoto = NewyaVoto;
+	}
+
+	public int GetId() {
+		return Id;
+	}
+	public String GetNombre() {
+		return Nombre;
+	}
+	public boolean GetyaVoto() {
+		return yaVoto;
+	}
+
+	public void marcarComoVotado() { //para marcar si alguien ya voto
+		yaVoto = true;
+	}
+
+	public void PrintVotante() {
+		System.out.println("Id : " + Id);
+		System.out.println("Nombre : " + Nombre);
+		System.out.println("yaVoto : " + yaVoto);
+	}
+};
+
+class UrnalElectoral {
+
+	private Node listaCandidatos;
+	private Stack<Voto> historialVotos;
+	private Queue<Voto>  votosReportados;
+	private int idCounter;
+
+	public UrnalElectoral() {//constructor
+		historialVotos = new Stack<>();
+		votosReportados = new LinkedList<>();
+		idCounter = 0;
+		listaCandidatos = null;
+	}
+
+	public boolean verificarVotante(Votante votante) {
+		if(votante.GetyaVoto() == false) {
+			return false;
+		}
+		else {
+			return true;
+		}
+
+	}
+	public boolean registrarVoto(Votante votante,int id) {
+
+		//condicion principal (q el votante no haya votado)
+		if(verificarVotante(votante) == true) {
+			return false;
+		}
+
+		//extrae la hora actual del equipo en el que s einvoca el metodo y se registra el voto
+		//y lo transforma a string (para no tener problemas de variables diferentes etc)
+		String tiempoactual = java.time.LocalTime.now().toString();
+		Voto nuevo_Voto = new Voto(idCounter++, votante.GetId(), id, tiempoactual );
+
+		//Ahora buscamos si el wn por el que votC3 existe;
+		Node actual = listaCandidatos;
+		while (actual != null) {
+			if (actual.getCandidato().GetId() == id) {
+				
+				actual.getCandidato().agregarVoto(nuevo_Voto);
+				break;
+			}
+			actual = actual.getNext();
+		}
+		historialVotos.push(nuevo_Voto);
+		votante.marcarComoVotado();
+
+		return true;
+	}
+
+
+	public void reportarVoto(Candidato candidato, int idVoto) {
+		Queue<Voto> votosDelCandidato = candidato.GetVotosRecibidos();
+		Queue<Voto> nuevaCola = new LinkedList<>();
+		Voto votoAReportar = null;
+
+		// Buscar el voto mientras reconstruimos la cola
+		while (!votosDelCandidato.isEmpty()) {
+			Voto votoActual = votosDelCandidato.poll(); // Saca el primero
+
+			if (votoActual.Getid() == idVoto) {
+				votoAReportar = votoActual;
+			} else {
+				nuevaCola.add(votoActual);
+			}
+		}
+
+		// Actualizar la cola del candidato
+		candidato.SetVotosRecibidos(nuevaCola);
+
+		if (votoAReportar != null) {
+			votosReportados.add(votoAReportar);
+			System.out.println("Voto reportado.");
+		} else {
+			System.out.println("No se encontro el voto.");
+		}
+	}
+
+	public void obtenerResultado() {
+		Node actual = listaCandidatos;
+
+		while (actual != null) {
+			Candidato candidato = actual.getCandidato();
+			int cantidadVotos = candidato.GetVotosRecibidos().size();
+
+			// Imprimir altiro en consola
+			System.out.println("Candidato: " + candidato.GetNombre() +
+			                   " (" + candidato.GetPartido() + ")" +
+			                   " - Votos: " + cantidadVotos);
+
+			actual = actual.getNext();
+		}
+
+	}
 }
 
-
-    public void reportarVoto(Candidato candidato, int idVoto) {
-    Queue<Voto> votosDelCandidato = candidato.GetVotosRecibidos();
-    Queue<Voto> nuevaCola = new LinkedList<>();
-    Voto votoAReportar = null;
-
-    // Buscar el voto mientras reconstruimos la cola
-    while (!votosDelCandidato.isEmpty()) {
-        Voto votoActual = votosDelCandidato.poll(); // Saca el primero
-
-        if (votoActual.Getid() == idVoto) {
-            votoAReportar = votoActual;
-        } else {
-            nuevaCola.add(votoActual);
-        }
-    }
-
-    // Actualizar la cola del candidato
-    candidato.SetVotosRecibidos(nuevaCola);
-
-    if (votoAReportar != null) {
-        votosReportados.add(votoAReportar);
-        System.out.println("Voto reportado de pana ");
-    } else {
-        System.out.println("No se encontró el voto wtff ");
-    }
-}
-
-    public void obtenerResultado() {
-    Node actual = listaCandidatos;
-
-    while (actual != null) {
-        Candidato candidato = actual.getCandidato();
-        int cantidadVotos = candidato.GetVotosRecibidos().size();
-
-        // Imprimir altiro en consola
-        System.out.println("Candidato: " + candidato.GetNombre() +
-                           " (" + candidato.GetPartido() + ")" +
-                           " - Votos: " + cantidadVotos);
-
-        actual = actual.getNext();
-    }
-
-    return 0;
-}
-
-	public void agregarCandidato(Candidato candidato) {
-    Node nuevoNodo = new Node(candidato);
-    if (listaCandidatos == null) {
-        listaCandidatos = nuevoNodo;
-    } else {
-        Node actual = listaCandidatos;
-        while (actual.getNext() != null) {
-            actual = actual.getNext();
-        }
-        actual.setSiguiente(nuevoNodo);
-    }
-}
-}
-       
 
 public class Main
 {
