@@ -291,12 +291,12 @@ public class Main {
         UrnalElectoral urna = new UrnalElectoral(); // Instancia de la urna
         ArrayList<Votante> votantes = new ArrayList<>(); // Lista de votantes
 
-        urna.agregarCandidato(new Candidato(0, "Gabriel Boric", "Comunismo2", new LinkedList<>()));
-        urna.agregarCandidato(new Candidato(1, "IA de Pinochet", "NeoPinochetistas", new LinkedList<>()));
+        urna.agregarCandidato(new Candidato(0, "Canela", "FIC", new LinkedList<>()));
+        urna.agregarCandidato(new Candidato(1, "IA de O'higgins", "Nacionalista", new LinkedList<>()));
         urna.agregarCandidato(new Candidato(2, "Guru Guru", "TVN", new LinkedList<>()));
 
         while (true) {
-            System.out.println("\n--- MenUwU de Votaciones ---");
+            System.out.println("\n--- Menú de Votaciones ---");
             System.out.println("1. Registrar Votante");
             System.out.println("2. Votar");
             System.out.println("3. Reportar Voto");
@@ -324,7 +324,7 @@ public class Main {
                     // Votar
                     System.out.print("Ingrese su ID de votante: ");
                     int idVot = scanner.nextInt();
-                    System.out.print("Ingrese el ID del candidato a votar (0: Boric, 1: IA de Pinochet, 2: Guru Guru): ");
+                    System.out.print("Ingrese el ID del candidato a votar (0: Canela, 1: IA de O'higgins, 2: Guru Guru): ");
                     int idCand = scanner.nextInt();
 
                     if (idVot < votantes.size()) {
@@ -341,7 +341,7 @@ public class Main {
 
                 case 3:
                     // Reportar Voto
-                    System.out.print("Ingrese el ID del candidato (0: Boric, 1: IA de Pinochet, 2: Guru Guru): ");
+                    System.out.print("Ingrese el ID del candidato (0: Canela, 1: IA de O'higgins, 2: Guru Guru): ");
                     int idCandidatoReportar = scanner.nextInt();
                     System.out.print("Ingrese el ID del voto que quiere reportar: ");
                     int idVotoReportar = scanner.nextInt();
@@ -368,11 +368,11 @@ public class Main {
 
                 case 5:
                     // Salir
-                    System.out.println("Gracias por usar Electo. ¡Chao pescado!");
+                    System.out.println("Bye Bye!");
                     return;
 
                 default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
+                    System.out.println("Opción no válida.");
             }
         }
     }
