@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.time.LocalTime;//libreria que me deja usar el "localtime" para asi darle una fecha a los votos que seingresen
+
 
 class Node{ //Clase nodo prar utilizarlo en la urna, como se pide
 
