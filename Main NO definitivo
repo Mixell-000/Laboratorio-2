@@ -262,6 +262,26 @@ class UrnalElectoral {
 		}
 
 	}
+	
+public void agregarCandidato(Candidato nuevoCandidato) {
+    Node nuevoNodo = new Node(nuevoCandidato);
+
+    if (listaCandidatos == null) {
+        listaCandidatos = nuevoNodo;
+    } else {
+        Node actual = listaCandidatos;
+        while (actual.getNext() != null) {
+            actual = actual.getNext();
+        }
+        actual.setSiguiente(nuevoNodo);
+    }
+}
+
+public Node getListaCandidatos() {
+    return listaCandidatos;
+}
+
+
 }
 
 
@@ -343,7 +363,7 @@ public class Main {
 
                 case 4:
                     // Ver Resultados
-                    urna.obtenerResultado()
+                    urna.obtenerResultado();
                     break;
 
                 case 5:
@@ -356,3 +376,4 @@ public class Main {
             }
         }
     }
+}
